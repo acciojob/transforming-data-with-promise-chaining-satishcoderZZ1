@@ -21,22 +21,28 @@
 				outputDiv.innerText = "Please enter a valid number";
 				return;
 			}
-			function delayedTransform(value, delay, operation, messagePrefix = "Result:"){
-				return new Promise((resolve)=>{
-					setTimeout(()=>{
-						const newValue = operation(value);
-						outputDiv.innerText = `${messagePrefix} ${newValue}`;
-						resolve(newValue);
-					}, delay);
-				})
+			function delayedTransform(value, delay, operation, messagePrefix = "Result:") {
+			return new Promise((resolve) => {
+			    setTimeout(() => {
+			      const newValue = operation(value);
+      
+			      setTimeout(() => {
+			        outputDiv.innerText = `${messagePrefix} ${newValue}`;
+			        resolve(newValue);
+	      }, 10);
+	    }, delay);
+	  });
 			}
 
-			new Promise((resolve)=>{
-				setTimeout(()=>{
-					outputDiv.innerText = `Result : ${inputVal}`;
-					resolve(inputVal);
-				}, 2000);
-			})
+			new Promise((resolve) => {
+			  setTimeout(() => {
+			    setTimeout(() => {
+			      outputDiv.innerText = `Result: ${inputVal}`;
+			      resolve(inputVal);
+		    }, 10);
+		  }, 2000);
+		})
+
 			.then((num)=>delayedTransform(num, 1000, (n) => n*2))
 			.then ((num)=>delayedTransform(num, 1000, (n)=> n-3))
 			.then ((num)=>delayedTransform(num, 1000, (n)=> n/2))
